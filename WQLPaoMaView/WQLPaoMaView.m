@@ -27,6 +27,9 @@
     
     //单次循环的时间
     NSInteger time;
+    
+    //展示的内容视图
+    UIView *showContentView;
 }
 
 @end
@@ -38,6 +41,10 @@
     
     if (self) {
 
+        showContentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        showContentView.clipsToBounds = YES;
+        [self addSubview: showContentView];
+        
         CGFloat viewHeight = frame.size.height;
         labelHeight = viewHeight;
 
@@ -57,7 +64,8 @@
         behindFrame = CGRectMake(currentFrame.origin.x+currentFrame.size.width, 0, calcuWidth, labelHeight);
         
         myLable.frame = currentFrame;
-        [self addSubview:myLable];
+        
+        [showContentView addSubview:myLable];
         
         labelArray  = [NSMutableArray arrayWithObject:myLable];
         
@@ -69,7 +77,7 @@
             behindLabel.font = [UIFont systemFontOfSize:16.0f];
             behindLabel.backgroundColor = [UIColor orangeColor];
             [labelArray addObject:behindLabel];
-            [self addSubview:behindLabel];
+            [showContentView addSubview:behindLabel];
             [self doAnimation];
         }
     }
