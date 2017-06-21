@@ -16,4 +16,7 @@
 
 - (void)stop;
 
+- (void)doCustomAnimation;
+
+
 @end
