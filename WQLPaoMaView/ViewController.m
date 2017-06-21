@@ -8,17 +8,24 @@
 
 #import "ViewController.h"
 #import "WQLPaoMaView.h"
+#import "SecondViewController.h"
+
+
 @interface ViewController ()
 {
     WQLPaoMaView *paoma;
 }
+
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    paoma = [[WQLPaoMaView alloc]initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 50) withTitle:@"全场卖两块，买啥都两块，两块钱，你买不了吃亏，两块钱，你买不了上当，真正的物有所值。拿啥啥便宜 买啥啥不贵，都两块，买啥都两块，全场卖两块，随便挑，随便选，都两块～～ "];
+
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
+    paoma = [[WQLPaoMaView alloc]initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 50) withTitle:@"全场卖两块，买啥都两块，两块钱，你买不了吃亏，两块钱，你买不了上当，真正的物有所值。拿啥啥便宜 买啥啥不贵，都两块，买啥都两块，全场卖两块，随便挑，随便选，都两块～～"];
     [self.view addSubview:paoma];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -47,10 +54,23 @@
     [paoma start];
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    SecondViewController *second = [[SecondViewController alloc]init];
+    [paoma stop];
+    [self.navigationController pushViewController:second animated:YES];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [paoma doCustomAnimation];
+    [paoma start];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 @end
