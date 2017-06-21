@@ -8,7 +8,11 @@
 
 #import "WQLPaoMaView.h"
 
-@interface WQLPaoMaView()
+//单次循环的时间
+static const NSInteger animationDuration = 15;
+
+
+@interface WQLPaoMaView()<CAAnimationDelegate>
 {
     //左侧label的frame
     CGRect currentFrame;
@@ -25,11 +29,6 @@
     //是否为暂停状态
     BOOL isStop;
     
-    //单次循环的时间
-    NSInteger time;
-    
-    //展示的内容视图
-    UIView *showContentView;
 }
 
 @end
@@ -40,16 +39,11 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-
-        showContentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-        showContentView.clipsToBounds = YES;
-        [self addSubview: showContentView];
+        
         
         CGFloat viewHeight = frame.size.height;
         labelHeight = viewHeight;
 
-        //循环的时间这里取的是4 此数越大速度越快
-        time = title.length/4;
         
         UILabel *myLable = [[UILabel alloc]init];
         myLable.text = title;
@@ -65,7 +59,7 @@
         
         myLable.frame = currentFrame;
         
-        [showContentView addSubview:myLable];
+        [self addSubview:myLable];
         
         labelArray  = [NSMutableArray arrayWithObject:myLable];
         
@@ -77,44 +71,72 @@
             behindLabel.font = [UIFont systemFontOfSize:16.0f];
             behindLabel.backgroundColor = [UIColor orangeColor];
             [labelArray addObject:behindLabel];
-            [showContentView addSubview:behindLabel];
-            [self doAnimation];
+            [self addSubview:behindLabel];
+            
+
+            [self doCustomAnimation];
         }
     }
     return self;
 }
 
-- (void)doAnimation
+- (void)doCustomAnimation
 {
-    //UIViewAnimationOptionCurveLinear是为了让lable做匀速动画
-    [UIView animateWithDuration:time delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        
-        //取到两个label
-        UILabel *lableOne = labelArray[0];
-        UILabel *lableTwo = labelArray[1];
-        
-        //让两个label向左平移
-        lableOne.transform = CGAffineTransformMakeTranslation(-currentFrame.size.width, 0);
-        lableTwo.transform = CGAffineTransformMakeTranslation(-currentFrame.size.width, 0);
-        
-    } completion:^(BOOL finished) {
+    //取到两个label
+    UILabel *lableOne = labelArray[0];
+    UILabel *lableTwo = labelArray[1];
+    
+    [lableOne.layer removeAnimationForKey:@"LabelOneAnimation"];
+    [lableTwo.layer removeAnimationForKey:@"LabelTwoAnimation"];
+    
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    animation.values = @[[NSValue valueWithCGPoint:CGPointMake(lableOne.frame.origin.x+currentFrame.size.width/2, lableOne.frame.origin.y+labelHeight/2)],[NSValue valueWithCGPoint:CGPointMake(lableOne.frame.origin.x-currentFrame.size.width/2, lableOne.frame.origin.y+labelHeight/2)]];
+    animation.duration = animationDuration;
+    animation.delegate = self;
+    animation.calculationMode = kCAAnimationLinear;
+    animation.removedOnCompletion = NO;
+    [lableOne.layer addAnimation:animation forKey:@"LabelOneAnimation"];
+    
+    
+    CAKeyframeAnimation *animationTwo = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    animationTwo.values = @[[NSValue valueWithCGPoint:CGPointMake(lableTwo.frame.origin.x+currentFrame.size.width/2, lableTwo.frame.origin.y+labelHeight/2)],[NSValue valueWithCGPoint:CGPointMake(lableTwo.frame.origin.x-currentFrame.size.width/2, lableTwo.frame.origin.y+labelHeight/2)]];
+    animationTwo.duration = animationDuration;
+    animationTwo.delegate = self;
+    animationTwo.removedOnCompletion = NO;
+    animationTwo.calculationMode = kCAAnimationLinear;
+
+    [lableTwo.layer addAnimation:animationTwo forKey:@"LabelTwoAnimation"];
+    
+}
+
+
+
+- (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
+{
+    
+    UILabel *lableOne = labelArray[0];
+    UILabel *lableTwo = labelArray[1];
+
+    if (flag && anim == [lableOne.layer animationForKey:@"LabelOneAnimation"]) {
+       
+
         //两个label水平相邻摆放 内容一样 label1为初始时展示的 label2位于界面的右侧，未显示出来
         //当完成动画时，即第一个label在界面中消失，第二个label位于第一个label的起始位置时，把第一个label放置到第二个label的初始位置
-        UILabel *lableOne = labelArray[0];
-        lableOne.transform = CGAffineTransformIdentity;
         lableOne.frame = behindFrame;
-        
-        UILabel *lableTwo = labelArray[1];
-        lableTwo.transform = CGAffineTransformIdentity;
+
         lableTwo.frame = currentFrame;
-        
+
         //在数组中将第一个label放置到右侧，第二个label放置到左侧（因为此时展示的就是labelTwo）
         [labelArray replaceObjectAtIndex:1 withObject:lableOne];
         [labelArray replaceObjectAtIndex:0 withObject:lableTwo];
+
+
+
+        [self doCustomAnimation];
         
-        //递归调用
-        [self doAnimation];
-    }];
+    }
+
+    
 }
 
 
@@ -126,8 +148,10 @@
     
 }
 
+
 - (void)start
 {
+    
     UILabel *lableOne = labelArray[0];
     [self resumeLayer:lableOne.layer];
     
@@ -180,4 +204,6 @@
     
 }
 
+
 @end
+
