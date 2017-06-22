@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "WQLPaoMaView.h"
-
+#import "SecondViewController.h"
 
 
 @interface ViewController ()
@@ -57,9 +57,9 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     //跳转的话，把跑马灯停止
-    //SecondViewController *second = [[SecondViewController alloc]init];
-    //[paoma stop];
-    //[self.navigationController pushViewController:second animated:YES];
+    SecondViewController *second = [[SecondViewController alloc]init];
+    [paoma stop];
+    [self.navigationController pushViewController:second animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated

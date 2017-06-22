@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07F3F3101EFB7038005EA2D6 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F3F30F1EFB7038005EA2D6 /* SecondViewController.m */; };
 		388A40181C312E3F004A8295 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 388A40171C312E3F004A8295 /* main.m */; };
 		388A401B1C312E3F004A8295 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 388A401A1C312E3F004A8295 /* AppDelegate.m */; };
 		388A401E1C312E3F004A8295 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 388A401D1C312E3F004A8295 /* ViewController.m */; };
@@ -15,7 +16,7 @@
 		388A40261C312E3F004A8295 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 388A40241C312E3F004A8295 /* LaunchScreen.storyboard */; };
 		388A40311C312E3F004A8295 /* WQLPaoMaViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 388A40301C312E3F004A8295 /* WQLPaoMaViewTests.m */; };
 		388A403C1C312E3F004A8295 /* WQLPaoMaViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 388A403B1C312E3F004A8295 /* WQLPaoMaViewUITests.m */; };
-		388A404B1C313099004A8295 /* WQLPaoMaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 388A404A1C313099004A8295 /* WQLPaoMaView.m */; settings = {ASSET_TAGS = (); }; };
+		388A404B1C313099004A8295 /* WQLPaoMaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 388A404A1C313099004A8295 /* WQLPaoMaView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07F3F30E1EFB7038005EA2D6 /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		07F3F30F1EFB7038005EA2D6 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		388A40131C312E3F004A8295 /* WQLPaoMaView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WQLPaoMaView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		388A40171C312E3F004A8295 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		388A40191C312E3F004A8295 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -115,6 +118,8 @@
 				388A40241C312E3F004A8295 /* LaunchScreen.storyboard */,
 				388A40271C312E3F004A8295 /* Info.plist */,
 				388A40161C312E3F004A8295 /* Supporting Files */,
+				07F3F30E1EFB7038005EA2D6 /* SecondViewController.h */,
+				07F3F30F1EFB7038005EA2D6 /* SecondViewController.m */,
 			);
 			path = WQLPaoMaView;
 			sourceTree = "<group>";
@@ -278,6 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07F3F3101EFB7038005EA2D6 /* SecondViewController.m in Sources */,
 				388A401E1C312E3F004A8295 /* ViewController.m in Sources */,
 				388A401B1C312E3F004A8295 /* AppDelegate.m in Sources */,
 				388A404B1C313099004A8295 /* WQLPaoMaView.m in Sources */,
